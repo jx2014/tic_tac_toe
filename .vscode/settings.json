@@ -1,0 +1,19 @@
+{
+    "cmake.cmakePath": "c:\\msys64\\mingw64\\bin\\cmake.exe",
+    "cmake.mingwSearchDirs": [
+        "C:\\msys64\\mingw64\\bin"
+    ],
+    "cmake.generator": "MinGW Makefiles",
+    "cmake.configureOnOpen": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",    
+    "cmake.debugConfig": {
+        "args": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+    },
+    "C_Cpp.errorSquiggles": "Disabled",
+    "cmake.sourceDirectory": "${workspaceFolder}/.",
+    "files.associations": {
+        "stdint.h": "c"
+    }
+}

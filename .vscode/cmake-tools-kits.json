@@ -1,0 +1,12 @@
+{
+    "name": "GCC 10.3.0",
+    "compilers": {
+      "C": "C:\\msys64\\mingww64\\bin\\gcc.exe"
+    },
+    "preferredGenerator": {
+      "name": "MinGW Makefiles"
+    },
+    "environmentVariables": {
+      "CMT_MINGW_PATH": "C:\\msys64\\mingww64\\bin"
+    }
+  }
