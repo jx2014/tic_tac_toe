@@ -12,19 +12,20 @@ int grid_lookup[] = {0,0,1,0,2,1,0,0,0,2};
 char grid_game[ROW][COL];
 
 // An array holding two players.
-// A player is defined by enum PLAYER1 = 0, PLAYER2, COMPUTER
+// A player is defined by enum PLAYER1 = 0, PLAYER2 = 1, COMPUTER = 2
 player_t players[2];
 
 // Array of players in string representation.
 // Elements are "Player 1", "Player 2", "Computer"
-char *players_s[] = {"Player 1", "Player 2", "Computer"};
+char *players_s[] = {"Player 1", "Player 2", "Computer", "Computer2"};
 
 void set_players(void) {
     printf("\n");
-    printf("Select game mode (1 - 3): \n");
+    printf("Select game mode (1 - 4): \n");
     printf("1. Player 1 vs Player 2\n");
     printf("2. Player 1 vs Computer, Player 1 first move\n");
     printf("3. Player 1 vs Computer, Computer first move\n");
+    printf("4. Computer vs Computer.\n");
     printf("Enter q or Q to exit the game.\n");
     int m = 0;
     while (true) {
@@ -34,7 +35,7 @@ void set_players(void) {
             exit(EXIT_SUCCESS);
         if (isdigit(m))
             m = m - '0';
-        if (m < 1 || m > 3)
+        if (m < 1 || m > 4)
             printf("Invalid selection.\n");
         else
             break;
@@ -55,9 +56,16 @@ void set_players(void) {
             players[1] = PLAYER2;
             printf("Computer vs Player 2\n");
             break;
+        case 4:
+            players[0] = COMPUTER;
+            players[1] = COMPUTER;
+            printf("Computer vs Player 2\n");
+            break;
+
     }
 }
 
+// Function to reset the game board.
 void initialize_game(void) {
     int i = 1;
     for (int row = 0; row < ROW; row++) {
@@ -67,6 +75,7 @@ void initialize_game(void) {
     }
 }
 
+// Function to print out current game board.
 void print_grid(void) {
     printf("\n");
     for (int row = 0; row < GRID_ROW; row++) {
@@ -86,6 +95,7 @@ void print_grid(void) {
     }
 }
 
+// manually making a move by typing 1 to 9 on the grid. 
 bool make_a_move(int moves) {
     printf("%s's turn.\n", players_s[(moves % 2 == 0 ? players[1] : players[0])]);
     printf("Enter a move (1 - 9) for \'%c\': ", (moves % 2 == 0 ? 'O' : 'X'));
@@ -115,3 +125,19 @@ bool make_a_move(int moves) {
         }
     }    
 }
+
+// Function used by computer to make a move
+void computer_make_a_move(int moves) {
+    int i = 0;
+    for (int r = 0; r < ROW; r++) {
+        for (int c = 0; c < COL; c++) {
+            i++;
+            if (i == moves) {
+                if (grid_game[r][c] - '0' == moves) {
+                    grid_game[r][c] = (moves % 2 == 0 ? 'O' : 'X');
+                    return;
+                }
+            }   
+        }
+    }       
+} 

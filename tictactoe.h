@@ -8,19 +8,19 @@
 #define GRID_ROW 5
 #define GRID_COL 11
 
+typedef enum {PLAYER1 = 0, PLAYER2, COMPUTER, COMPUTER2} player_t;
+
 extern int grid_lookup[];
 extern char grid_game[][COL];
-
-typedef enum {PLAYER1 = 0, PLAYER2, COMPUTER} player_t;
 extern player_t players[];
 extern char *players_s[];
 
 void set_players(void);
 void initialize_game(void);
 void print_grid(void);
-bool make_a_move(int moves);
-bool eval_game(int moves);
+bool make_a_move(int progression);
+bool eval_game(int progression, player_t *player);
 
-void computer_moves(int moves);
+bool computer_make_a_move(int progression, int move);
 
 #endif

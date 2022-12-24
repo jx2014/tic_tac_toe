@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+player_t winner;
 
 int main(void) {
    
@@ -21,9 +22,10 @@ int main(void) {
             }
             print_grid();
             if (i > 4)
-                if (eval_game(i)) {
+                if (eval_game(i, &winner)) {
                     printf("Game is won by %s!\n",                                  \
-                            players_s[(i % 2 == 0 ? players[1] : players[0])]);
+                            // players_s[(i % 2 == 0 ? players[1] : players[0])]);
+                            players_s[winner]);
                     break;
                 }
         }        
