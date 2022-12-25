@@ -12,7 +12,7 @@ int grid_lookup[] = {0,0,1,0,2,1,0,0,0,2};
 char grid_game[ROW][COL];
 
 // An array holding two players.
-// A player is defined by enum PLAYER1 = 0, PLAYER2 = 1, COMPUTER = 2
+// A player is defined by enum PLAYER1 = 0, PLAYER2 = 1, COMPUTER = 2, COMPUTER2 = 3.
 player_t players[2];
 
 // Array of players in string representation.
@@ -96,9 +96,9 @@ void print_grid(void) {
 }
 
 // manually making a move by typing 1 to 9 on the grid. 
-bool make_a_move(int moves) {
-    printf("%s's turn.\n", players_s[(moves % 2 == 0 ? players[1] : players[0])]);
-    printf("Enter a move (1 - 9) for \'%c\': ", (moves % 2 == 0 ? 'O' : 'X'));
+bool make_a_move(int progression) {
+    printf("%s's turn.\n", players_s[(progression % 2 == 0 ? players[1] : players[0])]);
+    printf("Enter a move (1 - 9) for \'%c\': ", (progression % 2 == 0 ? 'O' : 'X'));
     int move = fgetc(stdin);
     while(fgetc(stdin) != '\n');
     if (move == 'q' || move == 'Q')
@@ -117,7 +117,7 @@ bool make_a_move(int moves) {
             i++;
             if (i == move) {
                 if (grid_game[r][c] - '0' == move) {
-                    grid_game[r][c] = (moves % 2 == 0 ? 'O' : 'X');
+                    grid_game[r][c] = (progression % 2 == 0 ? 'O' : 'X');
                     return true;
                 } else 
                     return false;
@@ -127,14 +127,14 @@ bool make_a_move(int moves) {
 }
 
 // Function used by computer to make a move
-void computer_make_a_move(int moves) {
+void computer_make_a_move(int progression, int move) {
     int i = 0;
     for (int r = 0; r < ROW; r++) {
         for (int c = 0; c < COL; c++) {
             i++;
-            if (i == moves) {
-                if (grid_game[r][c] - '0' == moves) {
-                    grid_game[r][c] = (moves % 2 == 0 ? 'O' : 'X');
+            if (i == move) {
+                if (grid_game[r][c] - '0' == move) {
+                    grid_game[r][c] = (progression % 2 == 0 ? 'O' : 'X');
                     return;
                 }
             }   
