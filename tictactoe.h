@@ -29,13 +29,14 @@ void set_players(void);
 void initialize_game(void);
 void print_grid(void);
 bool make_a_move(int progression);
-bool computer_make_a_move(int progression, int move);
+void computer_make_a_move(int progression, int move);
 
 // compute automated moves.
-bool eval_game(int progression, player_t *player);
-int compute_scores(int progression, player_t target_player)
-int minimax(int progression, player_t computer_player, bool isMax);
-int BestMove(int progression, player_t computer_player);
+bool eval_game(int progression, player_t *player, bool mute);
+// int compute_scores(int progression, player_t target_player);
+// int minimax(int progression, player_t computer_player, bool isMax);
+int best_move(int progression, player_t computer_player);
+// int best_move2(int progression, player_t computer_player);
 
 
 #endif

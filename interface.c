@@ -58,8 +58,8 @@ void set_players(void) {
             break;
         case 4:
             players[0] = COMPUTER;
-            players[1] = COMPUTER;
-            printf("Computer vs Player 2\n");
+            players[1] = COMPUTER2;
+            printf("Computer vs Computer 2\n");
             break;
 
     }
