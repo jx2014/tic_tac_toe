@@ -33,12 +33,10 @@ void set_players(void) {
         while(fgetc(stdin) != '\n');
         if (m == 'q' || m == 'Q')
             exit(EXIT_SUCCESS);
-        if (isdigit(m))
-            m = m - '0';
-        if (m < 1 || m > 4)
-            printf("Invalid selection.\n");
-        else
+        m = m - '0';
+        if (m >= 1 && m <= 4)
             break;
+        printf("Invalid selection.\n");        
     }
     switch (m) {
         case 1:
@@ -61,15 +59,14 @@ void set_players(void) {
             players[1] = COMPUTER2;
             printf("Computer vs Computer 2\n");
             break;
-
     }
 }
 
 // Function to reset the game board.
 void initialize_game(void) {
-    int i = 1;
-    for (int row = 0; row < ROW; row++) {
-        for (int col = 0; col < COL; col++) {
+    int i = 1, row, col;
+    for (row = 0; row < ROW; row++) {
+        for (col = 0; col < COL; col++) {
             grid_game[row][col] = '0' + i++;
         }
     }
@@ -77,10 +74,11 @@ void initialize_game(void) {
 
 // Function to print out current game board.
 void print_grid(void) {
+    int row, col;
     printf("\n");
-    for (int row = 0; row < GRID_ROW; row++) {
+    for (row = 0; row < GRID_ROW; row++) {
         printf("                    ");
-        for (int col = 0; col < GRID_COL; col++) {
+        for (col = 0; col < GRID_COL; col++) {
             if (col == 3 || col == 7)
                 printf("|");
             else if (row == 1 || row == 3)
@@ -97,47 +95,48 @@ void print_grid(void) {
 
 // manually making a move by typing 1 to 9 on the grid. 
 bool make_a_move(int progression) {
+    int row, col, move;
+    char mark = (progression % 2 == 0 ? 'O' : 'X');
     printf("%s's turn.\n", players_s[(progression % 2 == 0 ? players[1] : players[0])]);
-    printf("Enter a move (1 - 9) for \'%c\': ", (progression % 2 == 0 ? 'O' : 'X'));
-    int move = fgetc(stdin);
+    printf("Enter a move (1 - 9) for \'%c\': ", mark);
+    move = fgetc(stdin);
     while(fgetc(stdin) != '\n');
+    
     if (move == 'q' || move == 'Q')
         exit(EXIT_SUCCESS);
 
-    if (isdigit(move)) {
-        move = move - '0';
-    }
-
+    move = move - '0';
     if (move > 9 || move < 1)
         return false;
     
-    int i = 0;
-    for (int r = 0; r < ROW; r++) {
-        for (int c = 0; c < COL; c++) {
-            i++;
-            if (i == move) {
-                if (grid_game[r][c] - '0' == move) {
-                    grid_game[r][c] = (progression % 2 == 0 ? 'O' : 'X');
-                    return true;
-                } else 
-                    return false;
-            }
-        }
-    }    
+    cell_to_board(move, &row, &col);
+    if (!empty_cell(move))
+        return false;
+    grid_game[row][col] = mark;
+    return true;  
 }
 
 // Function used by computer to make a move
 void computer_make_a_move(int progression, int move) {
-    int i = 0;
-    for (int r = 0; r < ROW; r++) {
-        for (int c = 0; c < COL; c++) {
-            i++;
-            if (i == move) {
-                if (grid_game[r][c] - '0' == move) {
-                    grid_game[r][c] = (progression % 2 == 0 ? 'O' : 'X');
-                    return;
-                }
-            }   
-        }
-    }       
-} 
+    int row, col;
+    cell_to_board(move, &row, &col);
+    if (empty_cell(move))
+        grid_game[row][col] = (progression % 2 == 0 ? 'O' : 'X');
+}
+
+bool empty_cell(int cell) {
+    if (cell < 1 || cell > 9)
+        return false;
+    int row, col;
+    cell_to_board(cell, &row, &col);
+    return (grid_game[row][col] == (cell + '0') ? true : false);
+}
+
+// function to convert cell 1 to 9 to row and col
+void cell_to_board(int cell, int * row, int * col) {
+    // row * 3 + col + 1 = cell;
+    // row = (cell - 1) / 3; 
+    // col = (cell - 1) - row * 3;
+    *row = (cell - 1) / 3;
+    *col = (cell - 1) - *row * 3;
+}

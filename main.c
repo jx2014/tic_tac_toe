@@ -26,7 +26,6 @@ int main(void) {
         int test_progression = 1;
         print_grid();
 
-
         for (progression = test_progression; progression <= 9; progression++) {
             if (progression % 2 == 0 && players[1] == COMPUTER2) {
                 printf("Computer2's move.\n");
@@ -41,6 +40,7 @@ int main(void) {
                     printf("Illegal move, try again.\n");
                 }
             }
+           
             print_grid();
             if (progression > 4) {
                 if (eval_game(progression, &winner, false)) {
