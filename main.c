@@ -21,8 +21,9 @@ int main(void) {
                          {'4', '5', 'X'},
                          {'O', 'O', 'X'}
                          };*/
-        //grid_game[0][1] = grid_game[0][2] = grid_game[1][1] = 'X';
-        //grid_game[0][0] = grid_game[2][1] = 'O';
+        //grid_game[0][1] = grid_game[1][2] = grid_game[2][2] = 'X';
+        //grid_game[2][0] = grid_game[2][1] = 'O';
+        //int test_progression = 6;
         int test_progression = 1;
         print_grid();
 

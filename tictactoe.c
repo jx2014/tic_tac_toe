@@ -69,7 +69,7 @@ int minimax(int progression, player_t computer_player, bool isMax, int level) {
     } 
     
     
-    if (progression > 11)
+    if (progression > 9)
         return 0;
     
 
@@ -79,9 +79,9 @@ int minimax(int progression, player_t computer_player, bool isMax, int level) {
         for (c = 0; c < COL; c++, i++) {   
             if (!empty_cell(i)) continue;
             grid_game[r][c] = mark;
-            best_score = (isMax ?                                                                     \
-                          max(best_score, minimax(++progression, computer_player, !isMax, ++level)) : \
-                          min(best_score, minimax(++progression, computer_player, !isMax, ++level))
+            best_score = (isMax ?                                                                       \
+                          max(best_score, minimax(progression + 1, computer_player, !isMax, level + 1)) : \
+                          min(best_score, minimax(progression + 1, computer_player, !isMax, level + 1))
                           );
             grid_game[r][c] = i + '0'; // undo the move
         }
